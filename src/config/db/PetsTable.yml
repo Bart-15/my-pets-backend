@@ -1,0 +1,10 @@
+Type: AWS::DynamoDB::Table
+Properties:
+  TableName: PetsTable-${self:provider.stage}
+  BillingMode: PAY_PER_REQUEST
+  AttributeDefinitions:
+    - AttributeName: petId
+      AttributeType: S
+  KeySchema:
+    - AttributeName: petId
+      KeyType: HASH

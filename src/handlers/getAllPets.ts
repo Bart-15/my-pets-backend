@@ -8,7 +8,8 @@ export const handler: ProxyHandler = (event, context, callback) => {
   const response: PetResponse = {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Hello Pets!',
+      message: 'Hello world, this is a private route',
+      context: event.requestContext.authorizer.claims,
     }),
   };
   callback(undefined, response);

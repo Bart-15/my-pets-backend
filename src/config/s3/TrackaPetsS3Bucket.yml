@@ -1,0 +1,8 @@
+Type: AWS::S3::Bucket
+Properties:
+  BucketName: ${self:custom.TrackaPetsBucket.name}
+  PublicAccessBlockConfiguration:
+    BlockPublicAcls: false
+    BlockPublicPolicy: false
+    IgnorePublicAcls: false
+    RestrictPublicBuckets: false

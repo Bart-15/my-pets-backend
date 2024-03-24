@@ -1,0 +1,14 @@
+- Effect: 'Allow'
+  Action:
+    - dynamodb:DescribeTable
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:PutItem
+    - dynamodb:UpdateItem
+    - dynamodb:DeleteItem
+  Resource:
+    - arn:aws:dynamodb:${self:custom.UserId}:table/${self.custom.TrackaPetsBucket.name}
+- Effect: Allow
+  Action:
+    - 's3:PutObject'
+  Resource: arn:aws:s3:::${self:custom.TrackaPetsBucket.name}/images/*
