@@ -5,3 +5,5 @@ export type ProxyHandler = Handler<
   APIGatewayProxyEventV2 & { requestContext: { authorizer: any } },
   APIGatewayProxyResultV2
 >;
+
+export type Event = APIGatewayProxyEventV2 & { requestContext: { authorizer: any } };

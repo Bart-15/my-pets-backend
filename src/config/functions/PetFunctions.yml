@@ -1,0 +1,40 @@
+createPet:
+  handler: src/handlers/createPet.handler
+  events:
+    - http:
+        path: /pet
+        method: post
+        authorizer:
+          arn: ${self:custom.pets-authorizer}
+getAllPets:
+  handler: src/handlers/getAllPets.handler
+  events:
+    - http:
+        path: /pets
+        method: get
+        authorizer:
+          arn: ${self:custom.pets-authorizer}
+getPet:
+  handler: src/handlers/getPet.handler
+  events:
+    - http:
+        path: /pet/${id}
+        method: get
+        authorizer:
+          arn: ${self:custom.pets-authorizer}
+updatePet:
+  handler: src/handlers/updatePet.handler
+  events:
+    - http:
+        path: /pet/{id}
+        method: put
+        authorizer:
+          arn: ${self:custom.pets-authorizer}
+deletePet:
+  handler: src/handlers/deletePet.handler
+  events:
+    - http:
+        path: /pet/{id}
+        method: DELETE
+        authorizer:
+          arn: ${self:custom.pets-authorizer}

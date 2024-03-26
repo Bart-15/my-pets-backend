@@ -7,7 +7,7 @@
     - dynamodb:UpdateItem
     - dynamodb:DeleteItem
   Resource:
-    - arn:aws:dynamodb:${self:custom.UserId}:table/${self.custom.TrackaPetsBucket.name}
+    - arn:aws:dynamodb:${self:custom.UserId}:table/${self:custom.DatabaseTable.PetsTable}
 - Effect: Allow
   Action:
     - 's3:PutObject'

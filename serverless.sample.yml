@@ -34,18 +34,14 @@ resources:
     TrackaPetsBucket: ${file(src/config/s3/TrackaPetsS3Bucket.yml)}
     TrackaPetsPolicy: ${file(src/config/s3/TrackaPetsPolicy.yml)}
 
+# Lambda Functions
 functions:
-  getAllPets:
-    handler: src/handlers/getAllPets.handler
-    events:
-      - http:
-          path: /allpets
-          method: get
-          authorizer:
-            arn: ${self:custom.pets-authorizer}
+  - ${file(src/config/functions/PetFunctions.yml)}
 
 custom:
   pets-authorizer:
   TrackaPetsBucket:
     name: trackapets-bucket-${self:provider.stage}
   UserId:
+  DatabaseTable:
+    PetsTable: PetsTable

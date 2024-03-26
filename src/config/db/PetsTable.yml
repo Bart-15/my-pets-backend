@@ -1,6 +1,6 @@
 Type: AWS::DynamoDB::Table
 Properties:
-  TableName: PetsTable-${self:provider.stage}
+  TableName: ${self:custom.DatabaseTable.PetsTable}
   BillingMode: PAY_PER_REQUEST
   AttributeDefinitions:
     - AttributeName: petId
