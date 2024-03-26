@@ -8,7 +8,7 @@ import {
 } from '../validation/createPetValidationSchema';
 import { generateUUID, headers } from './../helpers/const';
 
-export const handler: ProxyHandler = async (event, _context, _callback) => {
+export const handler: ProxyHandler = async event => {
   try {
     const { email } = event.requestContext.authorizer.claims;
 
@@ -39,7 +39,7 @@ export const handler: ProxyHandler = async (event, _context, _callback) => {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        message: 'Pet Successfully added!',
+        message: 'Pet Successfully created!',
       }),
     };
   } catch (error) {

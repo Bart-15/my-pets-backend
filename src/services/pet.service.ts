@@ -1,6 +1,22 @@
 import { db, PetsTable } from '../config/db/db';
 import { generateUpdateQuery } from '../helpers/const';
-import { createPetPayload } from '../validation/createPetValidationSchema';
+import { createPetPayload, updatePetPayload } from '../validation/createPetValidationSchema';
+
+export async function getPets(email: string) {
+  const params = {
+    TableName: PetsTable,
+    IndexName: 'ownerEmail',
+    KeyConditionExpression: '#owner = :owner',
+    ExpressionAttributeValues: {
+      ':owner': email,
+    },
+    ExpressionAttributeNames: {
+      '#owner': 'owner',
+    },
+  };
+
+  return await db.query(params).promise();
+}
 
 export async function addPet(input: createPetPayload) {
   return await db
@@ -16,7 +32,7 @@ export async function getPetById(id: string) {
     .get({
       TableName: PetsTable,
       Key: {
-        id: id,
+        petId: id,
       },
     })
     .promise();
@@ -24,15 +40,15 @@ export async function getPetById(id: string) {
   return pet.Item;
 }
 
-export async function updatePet(id: string, input: Partial<createPetPayload>) {
+export async function updatePet(id: string, input: Partial<updatePetPayload>) {
   const data = generateUpdateQuery(input);
 
   const params = {
     TableName: PetsTable,
     Key: {
-      id: id,
+      petId: id,
     },
-    ConditionExpression: 'attribute_exists(id)',
+    ConditionExpression: 'attribute_exists(petId)',
     ...data,
     ReturnValues: 'ALL_NEW',
   };
@@ -45,7 +61,7 @@ export async function destroyPet(id: string) {
     .delete({
       TableName: PetsTable,
       Key: {
-        id: id,
+        petId: id,
       },
     })
     .promise();

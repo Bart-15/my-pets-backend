@@ -1,15 +1,38 @@
+import { headers } from '../helpers/const';
+import { handleError, HttpError } from '../middleware/errorHandler';
+import { destroyPet, getPetById } from '../services/pet.service';
 import { ProxyHandler } from '../types/handler.types';
-interface PetResponse {
-  statusCode: number;
-  body: string;
-}
 
-export const handler: ProxyHandler = (event, context, callback) => {
-  const response: PetResponse = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Delete pet by pet by id route',
-    }),
-  };
-  callback(undefined, response);
+export const handler: ProxyHandler = async event => {
+  const { email: authUser } = event.requestContext.authorizer.claims;
+  try {
+    const petId = event.pathParameters?.id as string;
+
+    const pet = await getPetById(petId);
+
+    if (!pet) {
+      throw new HttpError(404, {
+        message: 'Pet not found',
+      });
+    }
+
+    // Check if the auth user is authorized to delete the data
+    if (pet.owner !== authUser) {
+      throw new HttpError(401, {
+        message: 'Unauthorized',
+      });
+    }
+
+    await destroyPet(petId);
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        message: 'Pet deleted successfully',
+      }),
+    };
+  } catch (error) {
+    return handleError(error);
+  }
 };

@@ -1,16 +1,22 @@
-import { ProxyHandler } from '@/types/handler.types';
-interface PetResponse {
-  statusCode: number;
-  body: string;
-}
+import { headers } from '../helpers/const';
+import { handleError } from '../middleware/errorHandler';
+import { getPets } from '../services/pet.service';
+import { ProxyHandler } from '../types/handler.types';
 
-export const handler: ProxyHandler = (event, context, callback) => {
-  const response: PetResponse = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Hello world, this is a private route. Get all pets!!',
-      context: event.requestContext.authorizer.claims,
-    }),
-  };
-  callback(undefined, response);
+export const handler: ProxyHandler = async event => {
+  const { email: authUser } = event.requestContext.authorizer.claims;
+
+  try {
+    const pets = await getPets(authUser);
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        pets: pets.Items,
+      }),
+    };
+  } catch (error) {
+    return handleError(error);
+  }
 };

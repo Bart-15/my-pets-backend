@@ -5,6 +5,15 @@ Properties:
   AttributeDefinitions:
     - AttributeName: petId
       AttributeType: S
+    - AttributeName: owner
+      AttributeType: S
   KeySchema:
     - AttributeName: petId
       KeyType: HASH
+  GlobalSecondaryIndexes:
+    - IndexName: ownerEmail
+      KeySchema:
+        - AttributeName: owner
+          KeyType: HASH
+      Projection:
+        ProjectionType: ALL
