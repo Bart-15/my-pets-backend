@@ -39,6 +39,11 @@ functions:
   - ${file(src/config/functions/PetFunctions.yml)}
 
 custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true # Node modules configuration for packaging
+    packager: 'npm' # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
   pets-authorizer:
   TrackaPetsBucket:
     name: trackapets-bucket-${self:provider.stage}

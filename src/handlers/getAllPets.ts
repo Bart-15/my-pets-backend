@@ -13,7 +13,7 @@ export const handler: ProxyHandler = async event => {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        pets: pets.Items,
+        pets: pets,
       }),
     };
   } catch (error) {

@@ -20,8 +20,6 @@ getPet:
     - http:
         path: /pet/${id}
         method: get
-        authorizer:
-          arn: ${self:custom.pets-authorizer}
 updatePet:
   handler: src/handlers/updatePet.handler
   events:
@@ -36,5 +34,13 @@ deletePet:
     - http:
         path: /pet/{id}
         method: DELETE
+        authorizer:
+          arn: ${self:custom.pets-authorizer}
+uploadPetPhoto:
+  handler: src/handlers/uploadPetPhoto.handler
+  events:
+    - http:
+        path: pet/uploadPetPhoto/
+        method: POST
         authorizer:
           arn: ${self:custom.pets-authorizer}

@@ -15,7 +15,8 @@ export async function getPets(email: string) {
     },
   };
 
-  return await db.query(params).promise();
+  const pets = await db.query(params).promise();
+  return pets.Items as createPetPayload[];
 }
 
 export async function addPet(input: createPetPayload) {

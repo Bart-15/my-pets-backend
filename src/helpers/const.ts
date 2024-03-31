@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
+import { s3, TrackaPetsS3Bucket } from '../config/s3/s3';
+
 export const generateUUID = () => uuidv4();
 
 export const generateUpdateQuery = <T extends Record<string, any>>(fields: T) => {
@@ -20,4 +22,15 @@ export const generateUpdateQuery = <T extends Record<string, any>>(fields: T) =>
 
 export const headers = {
   'content-type': 'application/json',
+};
+
+export const generatePresignedURL = async (imgName: string) => {
+  const params = {
+    Bucket: TrackaPetsS3Bucket as string,
+    Key: `${imgName}`, //filename
+    Expires: 30 * 60, //time to expire in seconds (5 minutes)
+    ContentType: 'multipart/form-data',
+  };
+
+  return s3.getSignedUrl('putObject', params);
 };

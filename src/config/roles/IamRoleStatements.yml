@@ -8,6 +8,12 @@
     - 'dynamodb:Query'
   Resource:
     - arn:aws:dynamodb:${self:custom.UserId}:table/${self:custom.DatabaseTable.PetsTable}
+# Role for ownerEmail indexing
+- Effect: Allow
+  Action:
+    - 'dynamodb:Query'
+  Resource:
+    - arn:aws:dynamodb:${self:custom.UserId}:table/${self:custom.DatabaseTable.PetsTable}/index/ownerEmail
 - Effect: Allow
   Action:
     - 's3:PutObject'
