@@ -27,9 +27,8 @@ export const headers = {
 export const generatePresignedURL = async (imgName: string) => {
   const params = {
     Bucket: TrackaPetsS3Bucket as string,
-    Key: `${imgName}`, //filename
+    Key: imgName, //filename
     Expires: 30 * 60, //time to expire in seconds (5 minutes)
-    ContentType: 'multipart/form-data',
   };
 
   return s3.getSignedUrl('putObject', params);

@@ -13,7 +13,7 @@ module.exports = {
   externals: [
     nodeExternals({
       // this WILL include `aws-sdk` `
-      allowlist: ['aws-sdk'],
+      allowlist: ['aws-sdk', 'xmlbuilder', 'sax', 'jmespath', 'xml2js'],
     }),
   ],
   devtool: 'source-map',

@@ -1,5 +1,5 @@
 import { s3, TrackaPetsS3Bucket } from '../config/s3/s3';
-import { generatePresignedURL } from '../helpers/const';
+import { generatePresignedURL, generateUUID } from '../helpers/const';
 
 export interface IUploadImage {
   photo: string;
@@ -13,7 +13,7 @@ export async function uploadImage(parsedBody: IUploadImage) {
     'base64'
   );
 
-  const imageName = `images/${new Date().toISOString()}.jpeg`;
+  const imageName = `image/${generateUUID()}.jpeg`;
   const params: AWS.S3.PutObjectRequest = {
     Bucket: TrackaPetsS3Bucket,
     Key: imageName,

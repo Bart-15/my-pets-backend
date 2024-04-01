@@ -1,3 +1,4 @@
+import { headers } from '../helpers/const';
 import { handleError, HttpError } from '../middleware/errorHandler';
 import { IUploadImage, uploadImage } from '../services/uploadPetPhoto.service';
 import { ProxyHandler } from '../types/handler.types';
@@ -12,12 +13,14 @@ export const handler: ProxyHandler = async event => {
     return {
       isBase64Encoded: false,
       statusCode: 200,
+      headers,
       body: JSON.stringify({
         message: 'Pet Photo successfully uploaded to s3 bucket',
         presignedURL: presignedUrl,
       }),
     };
   } catch (error) {
+    console.log('yow', error);
     return handleError(error);
   }
 };
