@@ -23,3 +23,8 @@
   Action:
     - ses:SendEmail
   Resource: arn:aws:ses:*
+# Receive Email
+- Effect: 'Allow'
+  Action:
+    - sqs:ReceiveMessage
+  Resource: ${self:custom.TrackaPetsMailQueue.arn}
