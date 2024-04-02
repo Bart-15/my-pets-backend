@@ -13,7 +13,7 @@ export async function uploadImage(parsedBody: IUploadImage) {
     'base64'
   );
 
-  const imageName = `image/${generateUUID()}.jpeg`;
+  const imageName = `${generateUUID()}.jpeg`;
   const params: AWS.S3.PutObjectRequest = {
     Bucket: TrackaPetsS3Bucket,
     Key: imageName,
@@ -21,9 +21,9 @@ export async function uploadImage(parsedBody: IUploadImage) {
     ContentType: 'image/jpeg',
   };
 
-  const res = await s3.upload(params).promise();
+  const url = await s3.upload(params).promise();
 
   const presignedUrl = await generatePresignedURL(imageName);
 
-  return { res, presignedUrl };
+  return { url, presignedUrl };
 }

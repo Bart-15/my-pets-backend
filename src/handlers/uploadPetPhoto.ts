@@ -8,7 +8,7 @@ export const handler: ProxyHandler = async event => {
     const parsedBody = JSON.parse(event.body as string) as IUploadImage;
 
     if (!parsedBody?.photo) throw new HttpError(400, { error: 'Base64 image is required.' });
-    const { presignedUrl } = await uploadImage(parsedBody);
+    const { url, presignedUrl } = await uploadImage(parsedBody);
 
     return {
       isBase64Encoded: false,
@@ -17,10 +17,10 @@ export const handler: ProxyHandler = async event => {
       body: JSON.stringify({
         message: 'Pet Photo successfully uploaded to s3 bucket',
         presignedURL: presignedUrl,
+        url: url.Location,
       }),
     };
   } catch (error) {
-    console.log('yow', error);
     return handleError(error);
   }
 };
