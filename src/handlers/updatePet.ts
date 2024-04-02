@@ -35,7 +35,6 @@ export const handler: ProxyHandler = async (event, context, callback) => {
 
     const payload = {
       name: reqBody.name,
-      qrCode: reqBody.qrCode,
       photo: reqBody.photo,
       species: reqBody.species,
       breed: reqBody.breed,

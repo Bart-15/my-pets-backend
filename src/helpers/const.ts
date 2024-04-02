@@ -33,6 +33,5 @@ export const generatePresignedURL = async (imgName: string) => {
     Expires: expirationTime,
   };
 
-  const res = await s3.getSignedUrlPromise('getObject', params);
-  return res;
+  return await s3.getSignedUrlPromise('getObject', params);
 };

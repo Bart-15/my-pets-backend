@@ -1,4 +1,4 @@
-import { headers } from '../helpers/const';
+import { generatePresignedURL, headers } from '../helpers/const';
 import { handleError, HttpError } from '../middleware/errorHandler';
 import { getPetById } from '../services/pet.service';
 import { ProxyHandler } from '../types/handler.types';
@@ -13,10 +13,17 @@ export const handler: ProxyHandler = async event => {
       });
     }
 
+    const tempPhoto = pet.photo ? await generatePresignedURL(pet.photo) : '';
+
+    const modifiedData = {
+      ...pet,
+      photo: tempPhoto,
+    };
+
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(pet),
+      body: JSON.stringify(modifiedData),
     };
   } catch (error) {
     return handleError(error);

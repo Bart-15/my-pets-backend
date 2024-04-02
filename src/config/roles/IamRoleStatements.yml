@@ -18,3 +18,8 @@
   Action:
     - 's3:PutObject'
   Resource: arn:aws:s3:::${self:custom.TrackaPetsBucket.name}/images/*
+# Send email
+- Effect: 'Allow'
+  Action:
+    - ses:SendEmail
+  Resource: arn:aws:ses:*

@@ -20,8 +20,7 @@ export const handler: ProxyHandler = async event => {
       petId: generateUUID(),
       owner: email,
       name: reqBody.name,
-      qrCode: '',
-      photo: '',
+      photo: reqBody.photo,
       species: reqBody.species,
       breed: reqBody.breed,
       age: reqBody.age,
@@ -31,6 +30,7 @@ export const handler: ProxyHandler = async event => {
       temperament: reqBody.temperament,
       location: reqBody.location,
       birthDate: reqBody.birthDate,
+      notifiedCount: 0, // TODO: Will notify the owner maximum of 3x a day
     };
 
     await addPet(payload);

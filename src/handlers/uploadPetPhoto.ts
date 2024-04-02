@@ -18,6 +18,7 @@ export const handler: ProxyHandler = async event => {
         message: 'Pet Photo successfully uploaded to s3 bucket',
         presignedURL: presignedUrl,
         url: url.Location,
+        fileName: url.Key,
       }),
     };
   } catch (error) {

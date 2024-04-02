@@ -11,10 +11,9 @@ export const createPetValidationSchema = object({
   color: string().min(1, { message: 'Color is required' }),
   weight: number().min(1, { message: 'Weight is required' }),
   size: string().min(1, { message: 'Size is required' }),
-  photo: string().url().optional(),
+  photo: string().min(1, { message: 'Photo is required' }),
   temperament: string().min(1, { message: 'Temperament' }),
   location: string().min(1, { message: 'Location is required' }),
-  qrCode: string().url().optional(),
 });
 
 export type createPetPayload = TypeOf<typeof createPetValidationSchema>;
@@ -30,10 +29,9 @@ export const updatePetValidationSchema = object({
   color: string().min(1, { message: 'Color is required' }),
   weight: number().min(1, { message: 'Weight is required' }),
   size: string().min(1, { message: 'Size is required' }),
-  photo: string().url().optional(),
+  photo: string().min(1, { message: 'Photo is required' }),
   temperament: string().min(1, { message: 'Temperament' }),
   location: string().min(1, { message: 'Location is required' }),
-  qrCode: string().url().optional(),
 });
 
 export type updatePetPayload = TypeOf<typeof updatePetValidationSchema>;
