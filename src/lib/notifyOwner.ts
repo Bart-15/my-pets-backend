@@ -1,12 +1,11 @@
-import AWS from 'aws-sdk';
-
-import { db, PetsTable } from '../config/db/db';
+import { db, PetsTable, sqs } from '../config/config';
 import config from '../config/envConfig';
 import { updatePetPayload } from '../validation/createPetValidationSchema';
 import { notifyOwnerPayload } from '../validation/notifyOwnerValidation';
-const sqs = new AWS.SQS();
 
 export async function notifyOwner(petDetails: updatePetPayload, payload: notifyOwnerPayload) {
+  const notifiedCount = petDetails.notifiedCount as number;
+
   const params = {
     TableName: PetsTable,
     Key: {
@@ -14,7 +13,7 @@ export async function notifyOwner(petDetails: updatePetPayload, payload: notifyO
     },
     UpdateExpression: 'SET notifiedCount = :val',
     ExpressionAttributeValues: {
-      ':val': petDetails?.notifiedCount + 1,
+      ':val': notifiedCount + 1,
     },
   };
 
@@ -24,7 +23,7 @@ export async function notifyOwner(petDetails: updatePetPayload, payload: notifyO
     .sendMessage({
       QueueUrl: config.TRACKAPETS_MAIL_QUEUE_URL,
       MessageBody: JSON.stringify({
-        subject: 'Found Your Beloved Pet 🐾! Please Contact Me Immediately - From TrackaPet App',
+        subject: `Found Your Beloved Pet '${petDetails.name}' 🐾! Please Contact Me Immediately - TrackaPet App`,
         recipient: petDetails.owner,
         body: `${payload.message}\n
       \n

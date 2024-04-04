@@ -8,7 +8,7 @@ import {
   updatePetValidationSchema,
 } from '../validation/createPetValidationSchema';
 
-export const handler: ProxyHandler = async (event, context, callback) => {
+export const handler: ProxyHandler = async event => {
   const { email: authUser } = event.requestContext.authorizer.claims;
 
   try {

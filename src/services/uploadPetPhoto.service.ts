@@ -1,4 +1,4 @@
-import { s3, TrackaPetsS3Bucket } from '../config/s3/s3';
+import { s3, TrackaPetsS3Bucket } from '../config/config';
 import { generatePresignedURL, generateUUID } from '../helpers/const';
 
 export interface IUploadImage {

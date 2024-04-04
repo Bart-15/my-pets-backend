@@ -22,10 +22,17 @@ provider:
   # you can overwrite defaults here
   stage: dev
   region: ap-southeast-1
-  iamRoleStatements: ${file(src/config/roles/IamRoleStatements.yml)}
+  environment:
+    TRACKAPETS_MAIL_QUEUE_URL: ${self:custom.TrackaPetsMailQueue.url}
+    TRACKAPETS_TABLE_NAME: ${self:custom.DatabaseTable.PetsTable}
+    TRACKAPETS_BUCKET: ${self:custom.TrackaPetsBucket.name}
+  iam:
+    role:
+      statements: ${file(src/config/roles/IamRoleStatements.yml)}
 
 plugins:
-  - serverless-plugin-typescript
+  - serverless-webpack # serverless webpack plugin
+  # - serverless-plugin-typescript
   - serverless-offline
 
 resources:
@@ -33,20 +40,29 @@ resources:
     PetsTable: ${file(src/config/db/PetsTable.yml)}
     TrackaPetsBucket: ${file(src/config/s3/TrackaPetsS3Bucket.yml)}
     TrackaPetsPolicy: ${file(src/config/s3/TrackaPetsPolicy.yml)}
+    TrackaPetsMailQueue: ${file(src/config/mailQueue/TrackaPetsMailQueue.yml):TrackaPetsMailQueue}
+  Outputs:
+    TrackaPetsMailQueueArn: ${file(src/config/mailQueue/TrackaPetsMailQueue.yml):Outputs.TrackaPetsMailQueueArn}
+    TrackaPetsMailQueueUrl: ${file(src/config/mailQueue/TrackaPetsMailQueue.yml):Outputs.TrackaPetsMailQueueUrl}
 
 # Lambda Functions
 functions:
   - ${file(src/config/functions/PetFunctions.yml)}
+  - ${file(src/config/functions/SendMail.yml)}
 
 custom:
   webpack:
     webpackConfig: 'webpack.config.js'
     includeModules: true # Node modules configuration for packaging
     packager: 'npm' # Packager that will be used to package your external modules
-    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
+    excludeFiles: src/**/*.test.js
   pets-authorizer:
   TrackaPetsBucket:
     name: trackapets-bucket-${self:provider.stage}
   UserId:
   DatabaseTable:
-    PetsTable: PetsTable
+    PetsTable: PetsTable-${self:provider.stage}
+  TrackaPetsMailQueue:
+    name: TrackaPets-MailQueue-${self:provider.stage}
+    arn: !GetAtt TrackaPetsMailQueue.Arn
+    url: !Ref TrackaPetsMailQueue

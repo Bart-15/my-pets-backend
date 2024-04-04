@@ -2,7 +2,6 @@ import { coerce, number, object, string, TypeOf } from 'zod';
 
 export const createPetValidationSchema = object({
   petId: string().optional(),
-  owner: string().email().min(1, { message: 'Owner is required' }),
   name: string().min(1, { message: 'Petname is required' }),
   species: string().min(1, { message: 'Species is required' }),
   breed: string().min(1, { message: 'Breed is required' }),
@@ -11,7 +10,7 @@ export const createPetValidationSchema = object({
   color: string().min(1, { message: 'Color is required' }),
   weight: number().min(1, { message: 'Weight is required' }),
   size: string().min(1, { message: 'Size is required' }),
-  notifiedCount: number().min(1, { message: 'Notified count is required' }),
+  notifiedCount: number(),
   photo: string().min(1, { message: 'Photo is required' }),
   temperament: string().min(1, { message: 'Temperament' }),
   location: string().min(1, { message: 'Location is required' }),
@@ -30,7 +29,7 @@ export const updatePetValidationSchema = object({
   color: string().min(1, { message: 'Color is required' }),
   weight: number().min(1, { message: 'Weight is required' }),
   size: string().min(1, { message: 'Size is required' }),
-  notifiedCount: number().min(1, { message: 'Notified count is required' }),
+  notifiedCount: number().optional(),
   photo: string().min(1, { message: 'Photo is required' }),
   temperament: string().min(1, { message: 'Temperament' }),
   location: string().min(1, { message: 'Location is required' }),

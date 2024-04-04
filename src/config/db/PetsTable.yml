@@ -7,6 +7,8 @@ Properties:
       AttributeType: S
     - AttributeName: owner
       AttributeType: S
+    - AttributeName: notifiedCount
+      AttributeType: N
   KeySchema:
     - AttributeName: petId
       KeyType: HASH
@@ -14,6 +16,12 @@ Properties:
     - IndexName: ownerEmail
       KeySchema:
         - AttributeName: owner
+          KeyType: HASH
+      Projection:
+        ProjectionType: ALL
+    - IndexName: notifiedCount
+      KeySchema:
+        - AttributeName: notifiedCount
           KeyType: HASH
       Projection:
         ProjectionType: ALL

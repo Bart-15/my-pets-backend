@@ -1,4 +1,4 @@
-import { db, PetsTable } from '../config/db/db';
+import { db, PetsTable } from '../config/config';
 import { generateUpdateQuery } from '../helpers/const';
 import { createPetPayload, updatePetPayload } from '../validation/createPetValidationSchema';
 
@@ -67,3 +67,5 @@ export async function destroyPet(id: string) {
     })
     .promise();
 }
+
+export async function notiefiedPets() {}

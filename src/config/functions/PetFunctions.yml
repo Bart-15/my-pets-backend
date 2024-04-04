@@ -3,7 +3,7 @@ createPet:
   events:
     - http:
         path: /pet
-        method: post
+        method: POST
         authorizer:
           arn: ${self:custom.pets-authorizer}
 getAllPets:
@@ -11,7 +11,7 @@ getAllPets:
   events:
     - http:
         path: /pets
-        method: get
+        method: GET
         authorizer:
           arn: ${self:custom.pets-authorizer}
 getPet:
@@ -19,13 +19,13 @@ getPet:
   events:
     - http:
         path: /pet/${id}
-        method: get
+        method: GET
 updatePet:
   handler: src/handlers/updatePet.handler
   events:
     - http:
         path: /pet/{id}
-        method: put
+        method: PATCH
         authorizer:
           arn: ${self:custom.pets-authorizer}
 deletePet:

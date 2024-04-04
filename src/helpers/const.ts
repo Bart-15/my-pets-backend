@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
-import { s3, TrackaPetsS3Bucket } from '../config/s3/s3';
+import { s3, TrackaPetsS3Bucket } from '../config/config';
 
 export const generateUUID = () => uuidv4();
 
