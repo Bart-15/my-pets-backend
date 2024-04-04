@@ -28,3 +28,8 @@
   Action:
     - sqs:ReceiveMessage
   Resource: ${self:custom.TrackaPetsMailQueue.arn}
+# Send Message
+- Effect: 'Allow'
+  Action:
+    - sqs:SendMessage
+  Resource: ${self:custom.TrackaPetsMailQueue.arn}

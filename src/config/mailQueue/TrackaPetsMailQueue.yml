@@ -1,12 +1,13 @@
-Type: AWS::SQS::Queue
-Properties:
-  QueueName: ${self:custom.TrackaPetsMailQueue.name}
-# Outputs:
-#   MailQueueArn:
-#     Value: ${self:custom.mailQueue.arn}
-#     Export:
-#       Name: ${self:custom.mailQueue.name}-Arn
-#   MailQueueUrl:
-#     Value: ${self:custom.mailQueue.url}
-#     Export:
-#       Name: ${self:custom.mailQueue.name}-Url
+TrackaPetsMailQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: ${self:custom.TrackaPetsMailQueue.name}
+Outputs:
+  TrackaPetsMailQueueArn:
+    Value: ${self:custom.TrackaPetsMailQueue.arn}
+    Export:
+      Name: ${self:custom.TrackaPetsMailQueue.name}-Arn
+  TrackaPetsMailQueueUrl:
+    Value: ${self:custom.TrackaPetsMailQueue.url}
+    Export:
+      Name: ${self:custom.TrackaPetsMailQueue.name}-Url

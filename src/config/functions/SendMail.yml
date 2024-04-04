@@ -4,3 +4,10 @@ sendMail:
     - sqs:
         arn: ${self:custom.TrackaPetsMailQueue.arn}
         batchSize: 1
+
+alertOwner:
+  handler: src/handlers/alertOwner.handler
+  events:
+    - http:
+        path: /pet/alertOwner/{id}
+        method: post

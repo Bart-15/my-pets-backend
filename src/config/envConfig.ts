@@ -2,16 +2,22 @@
 require('dotenv').config().parsed;
 
 interface ENV {
-  AUCTIONS_TABLE_NAME: string | undefined;
+  TRACKAPETS_TABLE_NAME: string | undefined;
+  TRACKAPETS_MAIL_QUEUE_URL: string | undefined;
+  TRACKAPETS_BUCKET: string | undefined;
 }
 
 interface Config {
-  AUCTIONS_TABLE_NAME: string;
+  TRACKAPETS_TABLE_NAME: string;
+  TRACKAPETS_MAIL_QUEUE_URL: string;
+  TRACKAPETS_BUCKET: string;
 }
 
 export const getConfig = (): ENV => {
   return {
-    AUCTIONS_TABLE_NAME: process.env.AUCTIONS_TABLE_NAME,
+    TRACKAPETS_TABLE_NAME: process.env.TRACKAPETS_TABLE_NAME,
+    TRACKAPETS_MAIL_QUEUE_URL: process.env.TRACKAPETS_MAIL_QUEUE_URL,
+    TRACKAPETS_BUCKET: process.env.TRACKAPETS_BUCKET,
   };
 };
 
