@@ -68,4 +68,19 @@ export async function destroyPet(id: string) {
     .promise();
 }
 
-export async function notiefiedPets() {}
+export async function getToResetNotifiedCount() {
+  const params = {
+    TableName: PetsTable,
+    IndexName: 'notifiedCount',
+    KeyConditionExpression: '#notifiedCount = :maxNotifiedCount',
+    ExpressionAttributeValues: {
+      ':maxNotifiedCount': 3,
+    },
+    ExpressionAttributeNames: {
+      '#notifiedCount': 'notifiedCount',
+    },
+  };
+
+  const pets = await db.query(params).promise();
+  return pets.Items as createPetPayload[];
+}

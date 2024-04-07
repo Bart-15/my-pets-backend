@@ -44,3 +44,7 @@ uploadPetPhoto:
         method: POST
         authorizer:
           arn: ${self:custom.pets-authorizer}
+resetNotifiedCount:
+  handler: src/handlers/resetNotifiedCount.handler
+  events:
+    - schedule: rate(1 day)
