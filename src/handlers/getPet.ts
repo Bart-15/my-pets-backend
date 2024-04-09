@@ -1,9 +1,10 @@
 import { generatePresignedURL, headers } from '../helpers/const';
+import corsMiddleware from '../middleware/corsMiddleware';
 import { handleError, HttpError } from '../middleware/errorHandler';
 import { getPetById } from '../services/pet.service';
 import { ProxyHandler } from '../types/handler.types';
 
-export const handler: ProxyHandler = async event => {
+const getPet: ProxyHandler = async event => {
   try {
     const pet = await getPetById(event.pathParameters?.id as string);
 
@@ -29,3 +30,5 @@ export const handler: ProxyHandler = async event => {
     return handleError(error);
   }
 };
+
+export const handler = corsMiddleware(getPet);

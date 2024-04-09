@@ -1,9 +1,10 @@
 import { headers } from '../helpers/const';
+import corsMiddleware from '../middleware/corsMiddleware';
 import { handleError, HttpError } from '../middleware/errorHandler';
 import { IUploadImage, uploadImage } from '../services/uploadPetPhoto.service';
 import { ProxyHandler } from '../types/handler.types';
 
-export const handler: ProxyHandler = async event => {
+export const updloadPetPhoto: ProxyHandler = async event => {
   try {
     const parsedBody = JSON.parse(event.body as string) as IUploadImage;
 
@@ -25,3 +26,5 @@ export const handler: ProxyHandler = async event => {
     return handleError(error);
   }
 };
+
+export const handler = corsMiddleware(updloadPetPhoto);

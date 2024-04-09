@@ -4,6 +4,7 @@ createPet:
     - http:
         path: /pet
         method: POST
+        cors: true
         authorizer:
           arn: ${self:custom.pets-authorizer}
 getAllPets:
@@ -12,6 +13,7 @@ getAllPets:
     - http:
         path: /pets
         method: GET
+        cors: true
         authorizer:
           arn: ${self:custom.pets-authorizer}
 getPet:
@@ -20,12 +22,14 @@ getPet:
     - http:
         path: /pet/${id}
         method: GET
+        cors: true
 updatePet:
   handler: src/handlers/updatePet.handler
   events:
     - http:
         path: /pet/{id}
         method: PATCH
+        cors: true
         authorizer:
           arn: ${self:custom.pets-authorizer}
 deletePet:
@@ -34,6 +38,7 @@ deletePet:
     - http:
         path: /pet/{id}
         method: DELETE
+        cors: true
         authorizer:
           arn: ${self:custom.pets-authorizer}
 uploadPetPhoto:
@@ -42,6 +47,7 @@ uploadPetPhoto:
     - http:
         path: pet/uploadPetPhoto/
         method: POST
+        cors: true
         authorizer:
           arn: ${self:custom.pets-authorizer}
 resetNotifiedCount:

@@ -1,4 +1,5 @@
 import { headers } from '../helpers/const';
+import corsMiddleware from '../middleware/corsMiddleware';
 import { handleError, HttpError } from '../middleware/errorHandler';
 import validateResource from '../middleware/validateResource';
 import { getPetById, updatePet } from '../services/pet.service';
@@ -8,7 +9,7 @@ import {
   updatePetValidationSchema,
 } from '../validation/createPetValidationSchema';
 
-export const handler: ProxyHandler = async event => {
+export const update: ProxyHandler = async event => {
   const { email: authUser } = event.requestContext.authorizer.claims;
 
   try {
@@ -64,3 +65,5 @@ export const handler: ProxyHandler = async event => {
     return handleError(error);
   }
 };
+
+export const handler = corsMiddleware(update);

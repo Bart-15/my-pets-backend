@@ -1,3 +1,4 @@
+import corsMiddleware from '../middleware/corsMiddleware';
 import { handleError } from '../middleware/errorHandler';
 import validateResource from '../middleware/validateResource';
 import { addPet } from '../services/pet.service';
@@ -8,7 +9,7 @@ import {
 } from '../validation/createPetValidationSchema';
 import { generateUUID, headers } from './../helpers/const';
 
-export const handler: ProxyHandler = async event => {
+const createPet: ProxyHandler = async event => {
   try {
     const { email } = event.requestContext.authorizer.claims;
 
@@ -46,3 +47,5 @@ export const handler: ProxyHandler = async event => {
     return handleError(error);
   }
 };
+
+export const handler = corsMiddleware(createPet);

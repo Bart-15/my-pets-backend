@@ -1,9 +1,10 @@
 import { headers } from '../helpers/const';
+import corsMiddleware from '../middleware/corsMiddleware';
 import { handleError, HttpError } from '../middleware/errorHandler';
 import { destroyPet, getPetById } from '../services/pet.service';
 import { ProxyHandler } from '../types/handler.types';
 
-export const handler: ProxyHandler = async event => {
+export const deletePet: ProxyHandler = async event => {
   const { email: authUser } = event.requestContext.authorizer.claims;
   try {
     const petId = event.pathParameters?.id as string;
@@ -36,3 +37,5 @@ export const handler: ProxyHandler = async event => {
     return handleError(error);
   }
 };
+
+export const handler = corsMiddleware(deletePet);
