@@ -13,7 +13,7 @@ export const createPetValidationSchema = object({
   notifiedCount: number(),
   photo: string().min(1, { message: 'Photo is required' }),
   temperament: string().min(1, { message: 'Temperament' }),
-  location: string().min(1, { message: 'Location is required' }),
+  fullAddress: string().min(1, { message: 'Full address is required' }),
 });
 
 export type createPetPayload = TypeOf<typeof createPetValidationSchema>;
@@ -32,7 +32,7 @@ export const updatePetValidationSchema = object({
   notifiedCount: number().optional(),
   photo: string().min(1, { message: 'Photo is required' }),
   temperament: string().min(1, { message: 'Temperament' }),
-  location: string().min(1, { message: 'Location is required' }),
+  fullAddress: string().min(1, { message: 'Full Address is required' }),
 });
 
 export type updatePetPayload = TypeOf<typeof updatePetValidationSchema>;

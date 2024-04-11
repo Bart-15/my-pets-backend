@@ -44,7 +44,7 @@ export const update: ProxyHandler = async event => {
       weight: reqBody.weight,
       size: reqBody.size,
       temperament: reqBody.temperament,
-      location: reqBody.location,
+      fullAddress: reqBody.fullAddress,
       birthDate: reqBody.birthDate,
     };
 

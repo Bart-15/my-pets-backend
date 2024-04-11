@@ -29,7 +29,7 @@ const createPet: ProxyHandler = async event => {
       weight: reqBody.weight,
       size: reqBody.size,
       temperament: reqBody.temperament,
-      location: reqBody.location,
+      fullAddress: reqBody.fullAddress,
       birthDate: reqBody.birthDate,
       notifiedCount: 0, // TODO: Will notify the owner maximum of 3x a day
     };
