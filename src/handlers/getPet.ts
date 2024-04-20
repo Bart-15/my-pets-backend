@@ -19,6 +19,7 @@ const getPet: ProxyHandler = async event => {
     const modifiedData = {
       ...pet,
       photo: tempPhoto,
+      photoFilename: pet.photo,
     };
 
     return {
