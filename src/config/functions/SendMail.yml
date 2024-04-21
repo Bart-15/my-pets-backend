@@ -11,3 +11,4 @@ alertOwner:
     - http:
         path: /pet/alertOwner/{id}
         method: post
+        cors: true

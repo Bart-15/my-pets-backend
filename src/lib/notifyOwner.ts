@@ -23,7 +23,7 @@ export async function notifyOwner(petDetails: updatePetPayload, payload: notifyO
     .sendMessage({
       QueueUrl: config.TRACKAPETS_MAIL_QUEUE_URL,
       MessageBody: JSON.stringify({
-        subject: `Found Your Beloved Pet '${petDetails.name}' 🐾! Please Contact Me Immediately - TrackaPet App`,
+        subject: `Found Your Beloved Pet '${petDetails.name}' 🐾! Please Contact Me ASAP - Via TrackaPet App`,
         recipient: petDetails.owner,
         body: `${payload.message}\n
       \n

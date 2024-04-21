@@ -1,5 +1,6 @@
 import { headers } from '../helpers/const';
 import { notifyOwner } from '../lib/notifyOwner';
+import corsMiddleware from '../middleware/corsMiddleware';
 import { handleError, HttpError } from '../middleware/errorHandler';
 import validateResource from '../middleware/validateResource';
 import { getPetById } from '../services/pet.service';
@@ -10,7 +11,7 @@ import {
   notifyOwnerValidationSchema,
 } from '../validation/notifyOwnerValidation';
 
-export const handler: ProxyHandler = async event => {
+const alertOwner: ProxyHandler = async event => {
   try {
     const reqBody = JSON.parse(event.body as string) as notifyOwnerPayload;
 
@@ -50,3 +51,5 @@ export const handler: ProxyHandler = async event => {
     return handleError(error);
   }
 };
+
+export const handler = corsMiddleware(alertOwner);
